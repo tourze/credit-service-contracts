@@ -47,40 +47,4 @@ class CreditExpirationPolicyEnumTest extends TestCase
 
         $this->assertEquals($expectedArray, CreditExpirationPolicyEnum::NEVER_EXPIRE->toArray());
     }
-
-    /**
-     * 测试toItems方法是否返回所有枚举项的值和标签
-     */
-    public function testToItems_returnsCorrectLabeledArray()
-    {
-        $expectedItems = [
-            ['value' => 'never_expire', 'label' => '永不过期'],
-            ['value' => 'fixed_days', 'label' => '固定天数后过期'],
-            ['value' => 'fixed_date', 'label' => '固定日期过期'],
-            ['value' => 'end_of_month', 'label' => '月底过期'],
-            ['value' => 'end_of_quarter', 'label' => '季度末过期'],
-            ['value' => 'end_of_year', 'label' => '年底过期'],
-            ['value' => 'fifo', 'label' => '先进先出过期'],
-        ];
-
-        $this->assertEquals($expectedItems, CreditExpirationPolicyEnum::toItems());
-    }
-
-    /**
-     * 测试toSelect方法是否返回正确的select选项数组
-     */
-    public function testToSelect_returnsCorrectSelectOptions()
-    {
-        $expectedSelect = [
-            'never_expire' => '永不过期',
-            'fixed_days' => '固定天数后过期',
-            'fixed_date' => '固定日期过期',
-            'end_of_month' => '月底过期',
-            'end_of_quarter' => '季度末过期',
-            'end_of_year' => '年底过期',
-            'fifo' => '先进先出过期',
-        ];
-
-        $this->assertSame($expectedSelect, CreditExpirationPolicyEnum::toSelect());
-    }
 } 

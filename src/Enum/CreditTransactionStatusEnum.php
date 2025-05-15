@@ -2,7 +2,6 @@
 
 namespace Tourze\CreditServiceContracts\Enum;
 
-use Tourze\EnumExtra\EnumTrait;
 use Tourze\EnumExtra\Itemable;
 use Tourze\EnumExtra\ItemTrait;
 use Tourze\EnumExtra\Labelable;
@@ -16,7 +15,6 @@ enum CreditTransactionStatusEnum: int implements Labelable, Itemable, Selectable
 {
     use ItemTrait;
     use SelectTrait;
-    use EnumTrait;
 
     /**
      * 待处理

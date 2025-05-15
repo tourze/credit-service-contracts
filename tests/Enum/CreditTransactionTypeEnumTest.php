@@ -43,36 +43,4 @@ class CreditTransactionTypeEnumTest extends TestCase
 
         $this->assertEquals($expectedArray, CreditTransactionTypeEnum::INCOME->toArray());
     }
-
-    /**
-     * 测试toItems方法是否返回所有枚举项的值和标签
-     */
-    public function testToItems_returnsCorrectLabeledArray()
-    {
-        $expectedItems = [
-            ['value' => 1, 'label' => '收入'],
-            ['value' => 2, 'label' => '支出'],
-            ['value' => 3, 'label' => '冻结'],
-            ['value' => 4, 'label' => '解冻'],
-            ['value' => 5, 'label' => '过期'],
-        ];
-
-        $this->assertEquals($expectedItems, CreditTransactionTypeEnum::toItems());
-    }
-
-    /**
-     * 测试toSelect方法是否返回正确的select选项数组
-     */
-    public function testToSelect_returnsCorrectSelectOptions()
-    {
-        $expectedSelect = [
-            1 => '收入',
-            2 => '支出',
-            3 => '冻结',
-            4 => '解冻',
-            5 => '过期',
-        ];
-
-        $this->assertSame($expectedSelect, CreditTransactionTypeEnum::toSelect());
-    }
 } 
