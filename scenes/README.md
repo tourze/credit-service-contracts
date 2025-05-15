@@ -16,6 +16,9 @@
 10. [签到打卡连续累积奖励](./scene10-check-in-rewards.md) - 连续签到的递增奖励机制
 11. [积分抽奖活动](./scene11-points-lottery.md) - 使用积分参与抽奖获得奖励
 12. [企业组织内积分激励与分配](./scene12-enterprise-rewards.md) - 企业内部积分激励体系
+13. [积分系统灾难恢复](./scene13-disaster-recovery.md) - 系统灾难情况下的数据恢复流程
+14. [高并发下的积分争抢处理](./scene14-high-concurrency.md) - 秒杀等高并发场景下的积分处理策略
+15. [跨系统积分集成](./scene15-cross-system-integration.md) - 处理多系统间积分互通与数据同步
 
 ## 数据一致性
 
