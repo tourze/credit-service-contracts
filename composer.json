@@ -5,7 +5,6 @@
   "license": "MIT",
   "require": {
     "php": "^8.1",
-    "brick/math": "^0.13",
     "symfony/security-core": "^6.4",
     "tourze/enum-extra": "~0.0.5",
     "tourze/user-id-bundle": "0.1.*"
