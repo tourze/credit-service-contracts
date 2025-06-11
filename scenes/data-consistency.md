@@ -19,7 +19,7 @@ try {
     
     // 提交事务
     commitTransaction();
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     // 异常回滚
     rollbackTransaction();
     throw $e;
@@ -77,7 +77,7 @@ function processExchange($message) {
     try {
         $couponService->createCoupon($message['user_id'], $message['coupon_data']);
         $creditService->markTransactionCompleted($message['transaction_id']);
-    } catch (\Exception $e) {
+    } catch (\Throwable $e) {
         if ($message['retry_count'] < $message['max_retries']) {
             // 增加重试次数并重新入队
             $message['retry_count']++;
@@ -199,7 +199,7 @@ try {
         
         // 4. 标记整个操作完成
         $creditService->log()->updateOperationStatus($operationId, 'completed');
-    } catch (\Exception $e) {
+    } catch (\Throwable $e) {
         // 5. 创建优惠券失败，执行补偿操作
         $compensationTransaction = $creditService->operation()->addCredits(
             $userAccount,
@@ -219,7 +219,7 @@ try {
         
         throw $e;
     }
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     $creditService->log()->updateOperationStatus($operationId, 'failed', [
         'error' => $e->getMessage()
     ]);

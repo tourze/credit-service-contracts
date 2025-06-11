@@ -139,7 +139,7 @@ try {
         'require_address' => $requireAddress ?? false,
         'message' => '恭喜获得：'.$prizeName
     ];
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     // 12. 异常处理，回滚事务
     rollbackTransaction();
     throw $e;

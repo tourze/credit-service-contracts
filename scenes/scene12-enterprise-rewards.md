@@ -108,7 +108,7 @@ try {
         'allocation_details' => $allocations,
         'message' => '积分分配完成'
     ];
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     // 10. 异常处理，回滚事务
     rollbackTransaction();
     throw $e;

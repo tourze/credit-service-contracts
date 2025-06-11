@@ -62,7 +62,7 @@ try {
 
     // 7. 提交事务
     commitTransaction();
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     // 8. 异常回滚
     rollbackTransaction();
     throw $e;

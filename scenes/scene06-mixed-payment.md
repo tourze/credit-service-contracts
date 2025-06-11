@@ -85,8 +85,9 @@ try {
         'message' => '混合积分支付成功',
         'payment_details' => $deductionPlan
     ];
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     rollbackTransaction();
     throw $e;
 }
 ```
+
