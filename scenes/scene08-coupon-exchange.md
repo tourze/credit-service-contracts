@@ -89,7 +89,7 @@ try {
         'coupon_id' => $coupon->getId(),
         'valid_until' => $coupon->getExpiryDate()->format('Y-m-d H:i:s')
     ];
-} catch (\Throwable $e) {
+} catch  (\Throwable $e) {
     // 9. 异常处理，回滚事务
     rollbackTransaction();
     throw $e;
