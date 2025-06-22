@@ -75,7 +75,7 @@ interface CreditTransactionServiceInterface
     
     /**
      * 根据业务码和业务ID查找单个交易记录
-     * 
+     *
      * 用于幂等性处理
      *
      * @param string $businessCode 业务码
@@ -256,7 +256,7 @@ interface CreditTransactionServiceInterface
     
     /**
      * 获取交易详情
-     * 
+     *
      * 包含交易的详细信息，如关联业务数据、操作人信息等
      *
      * @param string $transactionId 交易ID
@@ -282,7 +282,7 @@ interface CreditTransactionServiceInterface
     
     /**
      * 获取关联交易
-     * 
+     *
      * 用于查询与特定交易相关的其他交易记录，如冻结/解冻、补偿操作等
      *
      * @param string $transactionId 交易ID
@@ -302,7 +302,7 @@ interface CreditTransactionServiceInterface
     
     /**
      * 验证交易完整性
-     * 
+     *
      * 检查交易记录是否被篡改或损坏
      *
      * @param string $transactionId 交易ID
@@ -345,7 +345,7 @@ interface CreditTransactionServiceInterface
     
     /**
      * 查询交易链路
-     * 
+     *
      * 跟踪一个业务流程中涉及的所有交易记录
      *
      * @param string $traceId 追踪ID
@@ -369,7 +369,7 @@ interface CreditTransactionServiceInterface
     
     /**
      * 交易重试
-     * 
+     *
      * 重新执行之前失败的交易
      *
      * @param string $transactionId 交易ID
@@ -390,7 +390,7 @@ interface CreditTransactionServiceInterface
     
     /**
      * 获取数据校验报告
-     * 
+     *
      * 用于系统自检，检查账户余额与交易记录是否一致
      *
      * @param array $filters 过滤条件，如积分类型、时间范围等
@@ -400,7 +400,7 @@ interface CreditTransactionServiceInterface
     
     /**
      * 获取系统风险警报
-     * 
+     *
      * 检测异常交易模式，如短时间内大量积分变动
      *
      * @param array $parameters 检测参数

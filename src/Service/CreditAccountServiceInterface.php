@@ -124,7 +124,7 @@ interface CreditAccountServiceInterface
     
     /**
      * 冻结积分
-     * 
+     *
      * 用于订单支付等场景，防止用户在下单后、支付前使用积分
      *
      * @param string $accountId 账户ID
@@ -143,7 +143,7 @@ interface CreditAccountServiceInterface
     
     /**
      * 解冻积分
-     * 
+     *
      * 用于订单取消等场景，将之前冻结的积分恢复可用
      *
      * @param string $accountId 账户ID
@@ -162,7 +162,7 @@ interface CreditAccountServiceInterface
     
     /**
      * 获取账户余额快照
-     * 
+     *
      * 用于记录特定时间点的账户状态，便于后续审计和分析
      *
      * @param string $accountId 账户ID
@@ -197,7 +197,7 @@ interface CreditAccountServiceInterface
     
     /**
      * 处理积分过期
-     * 
+     *
      * 自动扫描并处理已过期的积分
      *
      * @param string $accountId 账户ID
@@ -250,7 +250,7 @@ interface CreditAccountServiceInterface
     
     /**
      * A/B测试账户规则
-     * 
+     *
      * 用于支持不同用户群体采用不同积分规则的场景
      *
      * @param UserInterface $user 用户
@@ -266,7 +266,7 @@ interface CreditAccountServiceInterface
     
     /**
      * 同步不同系统间的积分账户
-     * 
+     *
      * 用于多系统集成场景，确保不同系统间的账户数据一致
      *
      * @param string $accountId 本地账户ID
