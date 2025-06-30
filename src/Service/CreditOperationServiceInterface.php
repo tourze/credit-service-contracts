@@ -8,7 +8,7 @@ use Tourze\UserIDBundle\Contracts\AccountInterface;
 
 /**
  * 积分操作服务接口
- * 
+ *
  * 提供对积分账户的各种操作功能
  */
 interface CreditOperationServiceInterface
