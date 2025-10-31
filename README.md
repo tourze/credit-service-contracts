@@ -1,5 +1,7 @@
 # Credit Service Contracts
 
+[English](README.md) | [中文](README.zh-CN.md)
+
 [![Latest Version](https://img.shields.io/packagist/v/tourze/credit-service-contracts.svg?style=flat-square)](https://packagist.org/packages/tourze/credit-service-contracts)
 
 This package provides interfaces and contracts for a comprehensive credit service system. It defines the structure and behavior for managing user credits, points, and rewards.
@@ -25,25 +27,27 @@ composer require tourze/credit-service-contracts
 ```php
 <?php
 
-use Tourze\CreditServiceContracts\Service\CreditServiceInterface;
-use Tourze\CreditServiceContracts\Enum\CreditBusinessCodeEnum;
+use Tourze\CreditServiceContracts\Service\CreditAccountServiceInterface;
+use Tourze\CreditServiceContracts\Service\CreditOperationServiceInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-// Inject the credit service
+// Inject the credit services
 public function __construct(
-    private readonly CreditServiceInterface $creditService
+    private readonly CreditAccountServiceInterface $accountService,
+    private readonly CreditOperationServiceInterface $operationService
 ) {}
 
 // Add credits to a user account
-public function addCredits(string $userId, string $creditTypeCode): void
+public function addCredits(UserInterface $user, string $creditTypeId): void
 {
     // Get the user's account for this credit type
-    $account = $this->creditService->account()->getAccount($userId, $creditTypeCode);
+    $account = $this->accountService->getOrCreateAccount($user, $creditTypeId);
     
     // Add credits for completing a task
-    $this->creditService->operation()->increaseCredits(
+    $this->operationService->increaseCredits(
         $account->getId(),
         100,
-        CreditBusinessCodeEnum::TASK_COMPLETE->value,
+        'task_complete',
         null,
         'Completed daily task'
     );
@@ -57,24 +61,18 @@ public function addCredits(string $userId, string $creditTypeCode): void
 - `CreditAccountInterface` - Represents a user's credit account
 - `CreditTypeInterface` - Defines different types of credits/points
 - `CreditTransactionInterface` - Records credit transactions
-- `CreditRuleInterface` - Defines rules for earning credits
-- `CreditExchangeInterface` - Manages credit exchanges for rewards
-- `CreditTransferInterface` - Handles credit transfers between users
 
 ### Service Interfaces
 
-- `CreditServiceInterface` - Main entry point to all credit services
 - `CreditAccountServiceInterface` - Manages credit accounts
 - `CreditTypeServiceInterface` - Manages credit types
 - `CreditOperationServiceInterface` - Handles credit operations (increase/decrease)
-- `CreditRuleServiceInterface` - Manages credit rules
 - `CreditTransactionServiceInterface` - Manages credit transactions
-- `CreditExchangeServiceInterface` - Manages credit exchanges
-- `CreditTransferServiceInterface` - Manages credit transfers
 
 ### Enums
 
-- `CreditBusinessCodeEnum` - Business codes for credit operations
+- `CreditTransactionTypeEnum` - Types of credit transactions
+- `CreditTransactionStatusEnum` - Status of credit transactions
 - `CreditExpirationPolicyEnum` - Policies for credit expiration
 
 ### Exceptions

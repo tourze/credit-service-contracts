@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\CreditServiceContracts;
 
-use DateTimeInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Tourze\UserIDBundle\Contracts\AccountInterface;
 
@@ -61,12 +62,12 @@ interface CreditAccountInterface
     /**
      * 获取账户创建时间
      */
-    public function getCreateTime(): DateTimeInterface;
+    public function getCreateTime(): \DateTimeInterface;
 
     /**
      * 获取账户更新时间
      */
-    public function getUpdateTime(): DateTimeInterface;
+    public function getUpdateTime(): \DateTimeInterface;
 
     /**
      * 获取账户状态

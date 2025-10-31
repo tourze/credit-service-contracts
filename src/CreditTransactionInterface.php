@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\CreditServiceContracts;
 
-use DateTimeInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Tourze\CreditServiceContracts\Enum\CreditTransactionStatusEnum;
 use Tourze\CreditServiceContracts\Enum\CreditTransactionTypeEnum;
@@ -96,19 +97,19 @@ interface CreditTransactionInterface
     /**
      * 获取交易创建时间
      */
-    public function getCreateTime(): DateTimeInterface;
+    public function getCreateTime(): \DateTimeInterface;
 
     /**
      * 获取交易完成时间
      */
-    public function getCompleteTime(): ?DateTimeInterface;
+    public function getCompleteTime(): ?\DateTimeInterface;
 
     /**
      * 获取积分有效期
      *
      * 针对有有效期的积分交易
      */
-    public function getExpiryTime(): ?DateTimeInterface;
+    public function getExpiryTime(): ?\DateTimeInterface;
 
     /**
      * 获取交易IP地址
@@ -129,6 +130,8 @@ interface CreditTransactionInterface
 
     /**
      * 获取交易额外数据
+     *
+     * @return array<string, mixed>
      */
     public function getExtraData(): array;
 }

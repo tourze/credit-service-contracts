@@ -1,8 +1,8 @@
 <?php
 
-namespace Tourze\CreditServiceContracts;
+declare(strict_types=1);
 
-use DateTimeInterface;
+namespace Tourze\CreditServiceContracts;
 
 /**
  * 积分类型接口
@@ -61,15 +61,17 @@ interface CreditTypeInterface
     /**
      * 获取积分类型创建时间
      */
-    public function getCreateTime(): DateTimeInterface;
+    public function getCreateTime(): \DateTimeInterface;
 
     /**
      * 获取积分类型更新时间
      */
-    public function getUpdateTime(): DateTimeInterface;
+    public function getUpdateTime(): \DateTimeInterface;
 
     /**
      * 获取该积分类型的附加属性
+     *
+     * @return array<string, mixed>
      */
     public function getAttributes(): array;
 }

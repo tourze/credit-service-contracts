@@ -1,70 +1,69 @@
 <?php
 
-namespace Tourze\CreditServiceContracts\Exception;
+declare(strict_types=1);
 
-use Exception;
-use Throwable;
+namespace Tourze\CreditServiceContracts\Exception;
 
 /**
  * 积分服务异常基类
  */
-class CreditServiceException extends Exception
+class CreditServiceException extends \Exception
 {
     /**
      * 错误代码：通用错误
      */
     public const ERROR_GENERAL = 10000;
-    
+
     /**
      * 错误代码：账户不存在
      */
     public const ERROR_ACCOUNT_NOT_FOUND = 10001;
-    
+
     /**
      * 错误代码：账户已禁用
      */
     public const ERROR_ACCOUNT_DISABLED = 10002;
-    
+
     /**
      * 错误代码：余额不足
      */
     public const ERROR_INSUFFICIENT_BALANCE = 10003;
-    
+
     /**
      * 错误代码：积分类型不存在
      */
     public const ERROR_CREDIT_TYPE_NOT_FOUND = 10004;
-    
+
     /**
      * 错误代码：积分类型已禁用
      */
     public const ERROR_CREDIT_TYPE_DISABLED = 10005;
-    
+
     /**
      * 错误代码：交易不存在
      */
     public const ERROR_TRANSACTION_NOT_FOUND = 10009;
-    
+
     /**
      * 错误代码：交易状态错误
      */
     public const ERROR_TRANSACTION_STATUS = 10010;
-    
+
     /**
      * 错误代码：冻结积分不足
      */
     public const ERROR_INSUFFICIENT_FROZEN = 10017;
-    
+
     /**
      * 错误代码：参数错误
      */
     public const ERROR_INVALID_PARAMETER = 10018;
-    
+
     /**
      * 错误代码：数据库错误
      */
     public const ERROR_DATABASE = 10019;
-    
+
     /**
      * 错误代码：系统错误
      */
@@ -84,7 +83,7 @@ class CreditServiceException extends Exception
      * 错误代码：批量操作部分失败
      */
     public const ERROR_BATCH_PARTIAL_FAILURE = 10023;
-    
+
     /**
      * 错误代码：操作被锁定
      */
@@ -102,17 +101,21 @@ class CreditServiceException extends Exception
 
     /**
      * 错误上下文数据
+     *
+     * @var array<string, mixed>
      */
     protected array $context;
-    
+
     /**
      * 构造函数
+     *
+     * @param array<string, mixed> $context
      */
     public function __construct(
-        string $message = "", 
-        int $code = 0, 
-        array $context = [], 
-        ?Throwable $previous = null
+        string $message = '',
+        int $code = 0,
+        array $context = [],
+        ?\Throwable $previous = null,
     ) {
         parent::__construct($message, $code, $previous);
         $this->context = $context;
@@ -120,6 +123,8 @@ class CreditServiceException extends Exception
 
     /**
      * 获取错误上下文数据
+     *
+     * @return array<string, mixed>
      */
     public function getContext(): array
     {
@@ -128,6 +133,8 @@ class CreditServiceException extends Exception
 
     /**
      * 创建余额不足异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function insufficientBalance(int $required, int $available, array $context = []): self
     {
@@ -137,9 +144,11 @@ class CreditServiceException extends Exception
             array_merge(['required' => $required, 'available' => $available], $context)
         );
     }
-    
+
     /**
      * 创建账户不存在异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function accountNotFound(string $identifier, array $context = []): self
     {
@@ -152,6 +161,8 @@ class CreditServiceException extends Exception
 
     /**
      * 创建交易不存在异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function transactionNotFound(string $transactionId, array $context = []): self
     {
@@ -164,6 +175,8 @@ class CreditServiceException extends Exception
 
     /**
      * 创建交易状态错误异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function invalidTransactionStatus(string $transactionId, string $currentStatus, string $expectedStatus, array $context = []): self
     {
@@ -173,13 +186,15 @@ class CreditServiceException extends Exception
             array_merge([
                 'transaction_id' => $transactionId,
                 'current_status' => $currentStatus,
-                'expected_status' => $expectedStatus
+                'expected_status' => $expectedStatus,
             ], $context)
         );
     }
-    
+
     /**
      * 创建重复交易异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function duplicateTransaction(string $businessCode, string $businessId, array $context = []): self
     {
@@ -192,6 +207,8 @@ class CreditServiceException extends Exception
 
     /**
      * 创建账户已禁用异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function accountDisabled(string $accountId, array $context = []): self
     {
@@ -201,9 +218,11 @@ class CreditServiceException extends Exception
             array_merge(['account_id' => $accountId], $context)
         );
     }
-    
+
     /**
      * 创建积分类型不存在异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function creditTypeNotFound(string $creditTypeId, array $context = []): self
     {
@@ -213,9 +232,11 @@ class CreditServiceException extends Exception
             array_merge(['credit_type_id' => $creditTypeId], $context)
         );
     }
-    
+
     /**
      * 创建积分类型已禁用异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function creditTypeDisabled(string $creditTypeId, array $context = []): self
     {
@@ -225,9 +246,11 @@ class CreditServiceException extends Exception
             array_merge(['credit_type_id' => $creditTypeId], $context)
         );
     }
-    
+
     /**
      * 创建冻结积分不足异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function insufficientFrozen(string $accountId, int $required, int $available, array $context = []): self
     {
@@ -237,13 +260,15 @@ class CreditServiceException extends Exception
             array_merge([
                 'account_id' => $accountId,
                 'required' => $required,
-                'available' => $available
+                'available' => $available,
             ], $context)
         );
     }
-    
+
     /**
      * 创建参数错误异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function invalidParameter(string $paramName, string $reason, array $context = []): self
     {
@@ -253,9 +278,11 @@ class CreditServiceException extends Exception
             array_merge(['param_name' => $paramName, 'reason' => $reason], $context)
         );
     }
-    
+
     /**
      * 创建数据库错误异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function databaseError(string $message, array $context = []): self
     {
@@ -265,9 +292,11 @@ class CreditServiceException extends Exception
             $context
         );
     }
-    
+
     /**
      * 创建操作锁定异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function operationLocked(string $resourceId, array $context = []): self
     {
@@ -277,9 +306,11 @@ class CreditServiceException extends Exception
             array_merge(['resource_id' => $resourceId], $context)
         );
     }
-    
+
     /**
      * 创建版本冲突异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function versionConflict(string $resourceId, int $expectedVersion, int $actualVersion, array $context = []): self
     {
@@ -289,13 +320,15 @@ class CreditServiceException extends Exception
             array_merge([
                 'resource_id' => $resourceId,
                 'expected_version' => $expectedVersion,
-                'actual_version' => $actualVersion
+                'actual_version' => $actualVersion,
             ], $context)
         );
     }
-    
+
     /**
      * 创建积分已过期异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function creditsExpired(string $accountId, array $context = []): self
     {
@@ -305,9 +338,12 @@ class CreditServiceException extends Exception
             array_merge(['account_id' => $accountId], $context)
         );
     }
-    
+
     /**
      * 创建批量操作部分失败异常
+     *
+     * @param array<mixed> $failedItems
+     * @param array<string, mixed> $context
      */
     public static function batchPartialFailure(array $failedItems, array $context = []): self
     {
@@ -317,9 +353,11 @@ class CreditServiceException extends Exception
             array_merge(['failed_items' => $failedItems], $context)
         );
     }
-    
+
     /**
      * 创建业务码冲突异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function businessCodeConflict(string $businessCode, string $businessId, array $context = []): self
     {
@@ -329,9 +367,11 @@ class CreditServiceException extends Exception
             array_merge(['business_code' => $businessCode, 'business_id' => $businessId], $context)
         );
     }
-    
+
     /**
      * 创建系统错误异常
+     *
+     * @param array<string, mixed> $context
      */
     public static function systemError(string $message, array $context = []): self
     {
@@ -342,4 +382,3 @@ class CreditServiceException extends Exception
         );
     }
 }
- 

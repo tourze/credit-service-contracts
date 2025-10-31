@@ -1,5 +1,7 @@
 # 积分服务合约
 
+[English](README.md) | [中文](README.zh-CN.md)
+
 [![最新版本](https://img.shields.io/packagist/v/tourze/credit-service-contracts.svg?style=flat-square)](https://packagist.org/packages/tourze/credit-service-contracts)
 
 本包提供了全面的积分服务系统的接口和合约。它定义了管理用户积分、点数和奖励的结构和行为。
@@ -25,25 +27,27 @@ composer require tourze/credit-service-contracts
 ```php
 <?php
 
-use Tourze\CreditServiceContracts\Service\CreditServiceInterface;
-use Tourze\CreditServiceContracts\Enum\CreditBusinessCodeEnum;
+use Tourze\CreditServiceContracts\Service\CreditAccountServiceInterface;
+use Tourze\CreditServiceContracts\Service\CreditOperationServiceInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 // 注入积分服务
 public function __construct(
-    private readonly CreditServiceInterface $creditService
+    private readonly CreditAccountServiceInterface $accountService,
+    private readonly CreditOperationServiceInterface $operationService
 ) {}
 
 // 为用户账户添加积分
-public function addCredits(string $userId, string $creditTypeCode): void
+public function addCredits(UserInterface $user, string $creditTypeId): void
 {
     // 获取用户此积分类型的账户
-    $account = $this->creditService->account()->getAccount($userId, $creditTypeCode);
+    $account = $this->accountService->getOrCreateAccount($user, $creditTypeId);
     
     // 为完成任务添加积分
-    $this->creditService->operation()->increaseCredits(
+    $this->operationService->increaseCredits(
         $account->getId(),
         100,
-        CreditBusinessCodeEnum::TASK_COMPLETE->value,
+        'task_complete',
         null,
         '完成每日任务'
     );
@@ -57,24 +61,18 @@ public function addCredits(string $userId, string $creditTypeCode): void
 - `CreditAccountInterface` - 表示用户的积分账户
 - `CreditTypeInterface` - 定义不同类型的积分/点数
 - `CreditTransactionInterface` - 记录积分交易
-- `CreditRuleInterface` - 定义赚取积分的规则
-- `CreditExchangeInterface` - 管理积分兑换奖励
-- `CreditTransferInterface` - 处理用户间的积分转赠
 
 ### 服务接口
 
-- `CreditServiceInterface` - 所有积分服务的主入口点
 - `CreditAccountServiceInterface` - 管理积分账户
 - `CreditTypeServiceInterface` - 管理积分类型
 - `CreditOperationServiceInterface` - 处理积分操作（增加/减少）
-- `CreditRuleServiceInterface` - 管理积分规则
 - `CreditTransactionServiceInterface` - 管理积分交易
-- `CreditExchangeServiceInterface` - 管理积分兑换
-- `CreditTransferServiceInterface` - 管理积分转赠
 
 ### 枚举
 
-- `CreditBusinessCodeEnum` - 积分操作的业务代码
+- `CreditTransactionTypeEnum` - 积分交易类型
+- `CreditTransactionStatusEnum` - 积分交易状态
 - `CreditExpirationPolicyEnum` - 积分过期策略
 
 ### 异常

@@ -1,38 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\CreditServiceContracts\Tests\Enum;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Tourze\CreditServiceContracts\Enum\CreditTransactionStatusEnum;
+use Tourze\PHPUnitEnum\AbstractEnumTestCase;
 
-class CreditTransactionStatusEnumTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(CreditTransactionStatusEnum::class)]
+final class CreditTransactionStatusEnumTest extends AbstractEnumTestCase
 {
-    /**
-     * 测试枚举值是否存在且正确
-     */
-    public function testEnumValues_areCorrectlyDefined()
-    {
-        $this->assertSame(0, CreditTransactionStatusEnum::PENDING->value);
-        $this->assertSame(1, CreditTransactionStatusEnum::COMPLETED->value);
-        $this->assertSame(2, CreditTransactionStatusEnum::FAILED->value);
-        $this->assertSame(3, CreditTransactionStatusEnum::CANCELLED->value);
-    }
-
-    /**
-     * 测试getLabel方法是否返回正确的中文标签
-     */
-    public function testGetLabel_returnsCorrectChineseLabels()
-    {
-        $this->assertSame('待处理', CreditTransactionStatusEnum::PENDING->getLabel());
-        $this->assertSame('已完成', CreditTransactionStatusEnum::COMPLETED->getLabel());
-        $this->assertSame('失败', CreditTransactionStatusEnum::FAILED->getLabel());
-        $this->assertSame('已取消', CreditTransactionStatusEnum::CANCELLED->getLabel());
-    }
-
     /**
      * 测试枚举值是否能被正确转换为数组
      */
-    public function testToArray_convertsEnumToArrayCorrectly()
+    public function testToArrayConvertsEnumToArrayCorrectly(): void
     {
         $expectedItems = [
             'value' => 0,
@@ -40,5 +25,20 @@ class CreditTransactionStatusEnumTest extends TestCase
         ];
 
         $this->assertEquals($expectedItems, CreditTransactionStatusEnum::PENDING->toArray());
+    }
+
+    /**
+     * 测试toSelectItem方法是否正确返回选择项格式
+     */
+    public function testToSelectItemReturnsCorrectSelectFormat(): void
+    {
+        $expectedSelectItem = [
+            'value' => 1,
+            'label' => '已完成',
+            'text' => '已完成',
+            'name' => '已完成',
+        ];
+
+        $this->assertEquals($expectedSelectItem, CreditTransactionStatusEnum::COMPLETED->toSelectItem());
     }
 }
