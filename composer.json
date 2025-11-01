@@ -6,7 +6,7 @@
   "require": {
     "symfony/security-core": "^7.3",
     "tourze/enum-extra": "1.*",
-    "tourze/user-id-bundle": "0.1.*"
+    "tourze/user-id-bundle": "1.0.*"
   },
   "require-dev": {
     "phpstan/phpstan": "^2.1",
